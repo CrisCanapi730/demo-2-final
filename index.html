@@ -1,0 +1,123 @@
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<html>
+  <body>
+    <h1>Catalogo Katas
+      <div>
+        <div id="identificador-usuario"></div>
+        <button  data-usuario="docente" id="usuario-button">Cambiar a Docente</button>
+      </div>
+    </h1>
+
+    <form id="buscar-por-nombre">
+      <input id="buscador" type="text" placeholder="Buscar por nombre">
+      <input type="submit" value="Buscar"></input>
+    </form>
+
+    <form id="buscar-por-autor">
+      <input id="buscadorAutor" type="text" placeholder="Ingrese el nombre del autor">
+      <input type="submit" value="Buscar"></input>
+    </form>
+
+    <form id="buscar-por-desc">
+      <input id="buscadorDesc" type="text" placeholder="Ingrese la descripcion">
+      <input type="submit" value="Buscar"></input>
+    </form>
+
+    <form id="buscar">
+      <span>Buscar kata mediante dificultad: </span>  
+      <select name="search" id="busq">
+        <option value="Todos">Todos</option>
+        <option value="Basico">Basico</option>
+        <option value="Intermedio">Intermedio</option>
+        <option value="Avanzado">Avanzado</option>
+      </select>
+    </form>
+
+    <form id="ordenar">
+      <span>Ordenar kata: </span>
+      <select name="search" id="ord">
+        <option value="Por defecto">Por defecto</option>
+        <option value="Por nombre">Por nombre</option>
+        <option value="Por autor">Por Autor</option>
+        <option value="Por descripcion">Por Descripcion</option>
+
+      </select>
+    </form>
+    
+    <form id="buscar-por-estado">
+      <span>Buscar kata mediante estado: </span>
+      <select name="searchEstado" id="buscadorEstado">
+        <option value="">Selecciona una opción</option>
+        <option value="Terminado">Terminado</option>
+        <option value="No Terminado">No Terminado</option>
+      </select>
+    </form>
+
+    <form id="boton-aniadir">
+      <input type="submit" value="Añadir Kata"></input>
+    </form>
+    
+    <form id="aniadir-kata" class="hide">
+      <h1>Añadir Kata</h1>
+      <span>Nombre de la Kata: </span>
+      <input type="text" placeholder="Ingrese el nombre..." id="nombre-kata">
+      <span>Ingrese el nombre del autor: </span>
+      <input type="text" placeholder="Autor..." id="nombre-autor"> <br>
+      <span>Ingrese la descripcion (opcional): </span>
+      <input type="text" placeholder="Descripcion" id="desc-kata">
+      <span>Ingrese la dificultad: </span>
+      <select id="dificultad-kata">
+        <option>Basico</option>
+        <option>Intermedio</option>
+        <option>Avanzado</option>
+      </select> <br>
+      <input type="submit" value="Agregar Kata">
+    </form>
+
+
+    <form id="editar-kata" class="hide">
+      <h1>Editar Kata</h1>
+      <span>Nombre de la Kata: </span>
+      <input type="text" placeholder="Ingrese el nombre..." id="editar-nombre-kata">
+      <span>Ingrese el nombre del autor: </span>
+      <input type="text" placeholder="Autor..." id="editar-nombre-autor"> <br>
+      <span>Ingrese la descripcion (opcional): </span>
+      <input type="text" placeholder="Descripcion" id="editar-desc-kata">
+      <span>Ingrese la dificultad: </span>
+      <select id="editar-dificultad-kata">
+        <option>Basico</option>
+        <option>Intermedio</option>
+        <option>Avanzado</option>
+      </select> <br>
+      <input type="submit" value="Editar Kata">
+    </form>
+
+
+    <center>
+    <div id="detalle-kata" class="hide">
+      <div id="caja-detalle">
+      <div id="detalle-nom-desc">
+        <div id="detalle-info">
+          <div id="detalle-nombre">Nombre</div>
+          <div id="detalle-autor">Autor</div>
+        </div>
+        <div id="detalle-desc">Desc</div>
+      </div>  
+      <div id="detalle-calificacion">80</div>
+      </div>
+    </div>
+    </center>
+
+    <div id="resultado-div"></div>
+
+
+
+    <script type="module" src="./src/presenter.js"></script>
+  </body>
+  <footer>
+    <div>Proyecto Final Ingenieria de Software</div>
+    <div>&#169OnlyKatas</div>
+  </footer>
+</html>

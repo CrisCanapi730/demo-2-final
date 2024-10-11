@@ -1,0 +1,22 @@
+{
+  "name": "parcel-jest-base",
+  "version": "1.0.0",
+  "description": "",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest --watch",
+    "test-once": "jest --verbose --coverage",
+    "cypress": "cypress open",
+    "cypress-run": "cypress run"
+  },
+  "author": "Israel Antezana R.",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "babel-jest": "^29.5.0",
+    "parcel": "^2.8.3"
+  }
+}
