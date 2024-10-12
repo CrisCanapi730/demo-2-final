@@ -40,6 +40,24 @@ describe('CatalogoKata', function() {
             assert.strictEqual(listaOrdenada[1].getDescripcion().toLowerCase(), 'descripcion m');
             assert.strictEqual(listaOrdenada[2].getDescripcion().toLowerCase(), 'descripcion z');
         });
+        it('debería manejar descripciones idénticas sin errores', function() {
+            // Crear instancias de Kata con descripciones iguales
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion A', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion A', 'Dificil');
+
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+
+            catalogo.ordenarPorDescripcion();
+
+            const listaOrdenada = catalogo.getLista();
+            assert.strictEqual(listaOrdenada[0].getDescripcion(), 'Descripcion A');
+            assert.strictEqual(listaOrdenada[1].getDescripcion(), 'Descripcion A');
+            assert.strictEqual(listaOrdenada[2].getDescripcion(), 'Descripcion A');
+        });
 
     });
 });
