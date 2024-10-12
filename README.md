@@ -7,8 +7,8 @@ npm install
 Ejecutar web-sever local parcel:
 npm start
 
-Ejecutar pruebas de unidad de forma continua --watch:
+Ejecutar pruebas de unidad:
 npm test
 
-Ejecutar pruebas de unidad solo una vez:
-npm run test-once
+Ejecutar covertura de codigo:
+npm run coverage
