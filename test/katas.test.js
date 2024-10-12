@@ -76,6 +76,14 @@ describe('CatalogoKata', function() {
             assert.strictEqual(listaOrdenada[1].getDescripcion(), 'Descripcion A');
             assert.strictEqual(listaOrdenada[2].getDescripcion(), 'Descripcion M');
         });
+        it('debería manejar una lista vacía sin errores', function() {
+            const catalogo = new CatalogoKata();
 
+            // Intentar ordenar una lista vacía
+            catalogo.ordenarPorDescripcion();
+
+            const listaOrdenada = catalogo.getLista();
+            assert.strictEqual(listaOrdenada.length, 0);  // La lista debería seguir vacía
+        });
     });
 });
