@@ -7,36 +7,42 @@ class Usuario {
     getNombre() {
         return this._nombre;
     }
-    getDesc() {
+
+    getDescripcion() {
         return this._descripcion;
     }
-   
 }
 
-
-export class Estudiante extends Usuario{
+class Estudiante extends Usuario {
     constructor(nombre, descripcion, promedio) {
         super(nombre, descripcion);
         this._promedio = promedio;
-        this.tipo = "estudiante";
+        this._tipo = "estudiante"; // Convierte en privado
     }
 
     getTipo() {
-        return this.tipo;
+        return this._tipo;
+    }
+
+    getPromedio() {
+        return this._promedio;
     }
 }
 
-
-export class Docente extends Usuario{
+class Docente extends Usuario {
     constructor(nombre, descripcion, calificacion) {
         super(nombre, descripcion);
         this._calificacion = calificacion;
-        this.tipo = "docente";
+        this._tipo = "docente"; // Convierte en privado
     }
 
     getTipo() {
-        return this.tipo;
+        return this._tipo;
     }
-    
+
+    getCalificacion() {
+        return this._calificacion;
+    }
 }
 
+module.exports = { Usuario, Estudiante, Docente };
