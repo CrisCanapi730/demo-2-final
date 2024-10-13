@@ -115,4 +115,28 @@ describe('CatalogoKata', function() {
             assert.strictEqual(result, undefined);
         });
     });
+    describe('#buscarPorNombre()', function() {
+        it('should find all katas with the given name', function() {
+          // Create Kata instances
+          const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion 1', 'Facil', 1);
+          const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion 2', 'Media', 2);
+          const kata3 = new Kata('Kata 2', 'Autor C', 'Descripcion 3', 'Dificil', 3);
+          const catalogo = new CatalogoKata();
+          catalogo.agregarKata(kata1);
+          catalogo.agregarKata(kata2);
+          catalogo.agregarKata(kata3);
+    
+          // Test buscarPorNombre
+          const result = catalogo.buscarPorNombre('Kata 2');
+          assert.strictEqual(result.length, 2);
+          assert.strictEqual(result[0].getNombre(), 'Kata 2');
+          assert.strictEqual(result[1].getNombre(), 'Kata 2');
+        });
+    
+        it('should return an empty array if no katas with the given name are found', function() {
+          const catalogo = new CatalogoKata();
+          const result = catalogo.buscarPorNombre('NonExistentKata');
+          assert.strictEqual(result.length, 0);
+        });
+    });    
 });
