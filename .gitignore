@@ -4,4 +4,4 @@ dist
 .parcel-cache
 /coverage
 .DS_Store
-.nyc_output
+** .nyc_output
