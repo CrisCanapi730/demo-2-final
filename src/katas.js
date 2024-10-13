@@ -1,4 +1,4 @@
-export class Kata{
+class Kata{
     constructor(nombre, autor, descripcion, dificultad, puntuacion=-1){
         this._nombre = nombre;
         this._autor = autor;
@@ -82,7 +82,7 @@ export class Kata{
 
 }
 
-export class CatalogoKata{
+class CatalogoKata{
     constructor()
     {
         this.listaKatas = [];
@@ -229,3 +229,5 @@ export class CatalogoKata{
 
     }
 }
+
+module.exports = { Kata, CatalogoKata };
