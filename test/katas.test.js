@@ -109,6 +109,10 @@ describe('CatalogoKata', function() {
             const result = catalogo.buscarPorId(999);
             assert.strictEqual(result, undefined);
         });
-      
+        it('should handle an empty list without errors', function() {
+            const catalogo = new CatalogoKata();
+            const result = catalogo.buscarPorId(1);
+            assert.strictEqual(result, undefined);
+        });
     });
 });
