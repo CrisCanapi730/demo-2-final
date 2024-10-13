@@ -182,5 +182,11 @@ describe('CatalogoKata', function() {
           const result = catalogo.buscarPorAutor('NonExistentAuthor');
           assert.strictEqual(result.length, 0);
         });
+
+        it('should handle an empty list without errors', function() {
+            const catalogo = new CatalogoKata();
+            const result = catalogo.buscarPorAutor('Autor A');
+            assert.strictEqual(result.length, 0); // The list should be empty
+        });
       });   
 });
