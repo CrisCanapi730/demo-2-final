@@ -138,5 +138,20 @@ describe('CatalogoKata', function() {
           const result = catalogo.buscarPorNombre('NonExistentKata');
           assert.strictEqual(result.length, 0);
         });
+
+        it('should handle case insensitivity', function() {
+            // Create Kata instances with different cases
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion 1', 'Facil', 1);
+            const kata2 = new Kata('kata 2', 'Autor B', 'Descripcion 2', 'Media', 2);
+            const kata3 = new Kata('KATA 2', 'Autor C', 'Descripcion 3', 'Dificil', 3);
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+      
+            // Test buscarPorNombre
+            const result = catalogo.buscarPorNombre('KATA 2');
+            assert.strictEqual(result.length, 2);
+        });
     });    
 });
