@@ -176,5 +176,11 @@ describe('CatalogoKata', function() {
           assert.strictEqual(result[0].getAutor(), 'Autor A');
           assert.strictEqual(result[1].getAutor(), 'Autor A');
         });
+    
+        it('should return an empty array if no katas with the given author name are found', function() {
+          const catalogo = new CatalogoKata();
+          const result = catalogo.buscarPorAutor('NonExistentAuthor');
+          assert.strictEqual(result.length, 0);
+        });
       });   
 });
