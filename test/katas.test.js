@@ -153,5 +153,10 @@ describe('CatalogoKata', function() {
             const result = catalogo.buscarPorNombre('KATA 2');
             assert.strictEqual(result.length, 2);
         });
+        it('should handle an empty list without errors', function() {
+            const catalogo = new CatalogoKata();
+            const result = catalogo.buscarPorNombre('Kata 1');
+            assert.strictEqual(result.length, 0); // The list should be empty
+        });
     });    
 });
