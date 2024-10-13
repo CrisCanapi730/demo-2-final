@@ -103,5 +103,12 @@ describe('CatalogoKata', function() {
           assert.strictEqual(result.getDescripcion(), 'Descripcion 3');
           assert.strictEqual(result.getNombre(), 'Kata 3');
         });
+
+        it('should return undefined if no kata with the given id is found', function() {
+            const catalogo = new CatalogoKata();
+            const result = catalogo.buscarPorId(999);
+            assert.strictEqual(result, undefined);
+        });
+      
     });
 });
