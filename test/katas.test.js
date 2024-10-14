@@ -4,6 +4,64 @@ const { Kata, CatalogoKata } = require('../src/katas.js');
 describe('CatalogoKata', function() {
     const assert = require('assert');
     const { Kata, CatalogoKata } = require('../src/katas.js');
+    describe('#eliminarKata()', function() {
+        it('debería eliminar una kata en la posición especificada', function() {
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.eliminarKata(1);  // Eliminar 'Kata 2'
+            const listaEsperada = [kata1, kata3];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+
+        it('debería manejar la eliminación con una posición fuera de rango', function() {
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.eliminarKata(10);  // Posición fuera de rango
+            const listaEsperada = [kata1, kata2];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+
+        it('debería manejar la eliminación con una lista vacía', function() {
+            const catalogo = new CatalogoKata();
+            catalogo.eliminarKata(0);  // Intentar eliminar en una lista vacía
+            const listaEsperada = [];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+
+        it('debería manejar la eliminación del primer elemento', function() {
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.eliminarKata(0);  // Eliminar 'Kata 1'
+            const listaEsperada = [kata2, kata3];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+
+        it('debería manejar la eliminación del último elemento', function() {
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.eliminarKata(2);  // Eliminar 'Kata 3'
+            const listaEsperada = [kata1, kata2];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+    });
     
     describe('#mostrarCatalogoKatas()', function() {
         it('debería mostrar el catálogo de katas correctamente', function() {
