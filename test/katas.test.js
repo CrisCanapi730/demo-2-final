@@ -184,4 +184,24 @@ describe('CatalogoKata', function() {
         });
     });
     
+    describe('#ordenarPorNombre()', () => {
+        it('debería ordenar las katas por nombre en orden alfabético', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Zeta', 'Autor1', 'Descripción', 'Fácil');
+            const kata2 = new Kata('Alfa', 'Autor2', 'Descripción', 'Intermedio');
+            const kata3 = new Kata('Beta', 'Autor3', 'Descripción', 'Difícil');
+    
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+    
+            catalogo.ordenarPorNombre();
+            const listaOrdenada = catalogo.getLista();
+    
+            assert.strictEqual(listaOrdenada[0].getNombre(), 'Alfa');
+            assert.strictEqual(listaOrdenada[1].getNombre(), 'Beta');
+            assert.strictEqual(listaOrdenada[2].getNombre(), 'Zeta');
+        });
+    });
+    
 });
