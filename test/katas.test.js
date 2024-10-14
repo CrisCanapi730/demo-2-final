@@ -223,4 +223,29 @@ describe('CatalogoKata', function() {
             assert.strictEqual(listaOrdenada[2].getAutor(), 'Zorro');
         });
     });
+
+    describe('#clone()', () => {
+        it('debería clonar el catálogo de katas', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            const kata2 = new Kata('Kata2', 'Autor2', 'Descripción de kata 2', 'Intermedio');
+    
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+    
+            const catalogoClonado = catalogo.clone();
+    
+            // Verifica que ambos catálogos tienen la misma cantidad de katas
+            assert.strictEqual(catalogoClonado.getLista().length, catalogo.getLista().length);
+    
+            // Verifica que las katas clonadas son iguales a las originales (valores coinciden)
+            assert.strictEqual(catalogoClonado.getLista()[0].getNombre(), catalogo.getLista()[0].getNombre());
+            assert.strictEqual(catalogoClonado.getLista()[1].getNombre(), catalogo.getLista()[1].getNombre());
+    
+            // Verifica que no son el mismo objeto en memoria
+            assert.notStrictEqual(catalogoClonado, catalogo);
+            assert.notStrictEqual(catalogoClonado.getLista()[0], catalogo.getLista()[0]);
+        });
+    });
+    
 });
