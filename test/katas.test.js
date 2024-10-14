@@ -17,6 +17,12 @@ describe('CatalogoKata', function() {
             const resultadoEsperado = `${kata1.mostrar()}${kata2.mostrar()}${kata3.mostrar()}`;
             assert.strictEqual(catalogo.mostrarCatalogoKatas(), resultadoEsperado);
         });
+
+        it('debería manejar un catálogo vacío', function() {
+            const catalogo = new CatalogoKata();
+            const resultadoEsperado = "";
+            assert.strictEqual(catalogo.mostrarCatalogoKatas(), resultadoEsperado);
+        });
     });
 
     describe('#ordenarPorDescripcion()', function() {
