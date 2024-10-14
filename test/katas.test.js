@@ -23,6 +23,26 @@ describe('CatalogoKata', function() {
             const resultadoEsperado = "";
             assert.strictEqual(catalogo.mostrarCatalogoKatas(), resultadoEsperado);
         });
+
+        it('debería mostrar correctamente un catálogo con una sola kata', function() {
+            const kata = new Kata('Kata Unica', 'Autor Unico', 'Descripcion Unica', 'Facil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata);
+            const resultadoEsperado = kata.mostrar();
+            assert.strictEqual(catalogo.mostrarCatalogoKatas(), resultadoEsperado);
+        });
+
+        it('debería manejar katas con caracteres especiales en sus descripciones', function() {
+            const kata1 = new Kata('Kata #1', 'Autor A', 'Descripcion #1', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion @2', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion &3', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            const resultadoEsperado = `${kata1.mostrar()}${kata2.mostrar()}${kata3.mostrar()}`;
+            assert.strictEqual(catalogo.mostrarCatalogoKatas(), resultadoEsperado);
+        });
     });
 
     describe('#ordenarPorDescripcion()', function() {
