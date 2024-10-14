@@ -248,4 +248,21 @@ describe('CatalogoKata', function() {
         });
     });
     
+    describe('#buscarPorEstado()', () => {
+        it('debería encontrar katas con el estado "No Terminado"', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            const kata2 = new Kata('Kata2', 'Autor2', 'Descripción de kata 2', 'Intermedio');
+            
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+    
+            // Por defecto, las katas tienen el estado "No Terminado"
+            const resultado = catalogo.buscarPorEstado('No Terminado');
+            assert.strictEqual(resultado.length, 2); // Ambas katas están "No Terminadas"
+            assert.strictEqual(resultado[0].getEstado(), 'No Terminado');
+            assert.strictEqual(resultado[1].getEstado(), 'No Terminado');
+        });
+    });
+    
 });
