@@ -273,6 +273,17 @@ describe('CatalogoKata', function() {
             const resultado = catalogo.buscarPorEstado('No Terminado');
             assert.strictEqual(resultado.length, 0);
         });
+        it('debería encontrar katas con el estado "Terminado"', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            kata1.setEstado('Terminado');
+    
+            catalogo.agregarKata(kata1);
+    
+            const resultado = catalogo.buscarPorEstado('Terminado');
+            assert.strictEqual(resultado.length, 1);
+            assert.strictEqual(resultado[0].getEstado(), 'Terminado');
+        });
     });
     
 });
