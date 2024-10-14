@@ -206,5 +206,21 @@ describe('CatalogoKata', function() {
             assert.strictEqual(listaOrdenada[2].getNombre(), 'Kata 3');
         });
 
+        it('debería ordenar las katas sin distinguir entre mayúsculas y minúsculas', function() {
+            // Crear instancias de Kata con nombres en mayúsculas y minúsculas
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion', 'Facil');
+            const kata2 = new Kata('kata 2', 'Autor B', 'Descripcion', 'Media');
+            const kata3 = new Kata('KATA 3', 'Autor C', 'Descripcion', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.ordenarPorNombre();
+            const listaOrdenada = catalogo.getLista();
+            assert.strictEqual(listaOrdenada[0].getNombre().toLowerCase(), 'kata 1');
+            assert.strictEqual(listaOrdenada[1].getNombre().toLowerCase(), 'kata 2');
+            assert.strictEqual(listaOrdenada[2].getNombre().toLowerCase(), 'kata 3');
+        });
+
     });
 });
