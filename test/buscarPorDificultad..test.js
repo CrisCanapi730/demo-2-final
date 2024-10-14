@@ -17,5 +17,23 @@ describe('Kata Functions', function() {
             assert.strictEqual(buscarPorDificultad(kata, 'Dificil'), false);
         });
     });
+    describe('arrayKatasConMismaDificultad', function() {
+        it('debería devolver una lista de katas con la misma dificultad', function() {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripción 1', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripción 2', 'Facil');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripción 3', 'Dificil');
+            
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+
+            const resultado = arrayKatasConMismaDificultad(catalogo, 'Facil');
+            assert.strictEqual(resultado.length, 2);
+            assert.strictEqual(resultado[0].getDificultad(), 'Facil');
+            assert.strictEqual(resultado[1].getDificultad(), 'Facil');
+        });
+    });
+
 
 });
