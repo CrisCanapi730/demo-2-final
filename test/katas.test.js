@@ -247,7 +247,7 @@ describe('CatalogoKata', function() {
             assert.notStrictEqual(catalogoClonado.getLista()[0], catalogo.getLista()[0]);
         });
     });
-    
+
     describe('#buscarPorEstado()', () => {
         it('debería encontrar katas con el estado "No Terminado"', () => {
             const catalogo = new CatalogoKata();
@@ -262,6 +262,16 @@ describe('CatalogoKata', function() {
             assert.strictEqual(resultado.length, 2); // Ambas katas están "No Terminadas"
             assert.strictEqual(resultado[0].getEstado(), 'No Terminado');
             assert.strictEqual(resultado[1].getEstado(), 'No Terminado');
+        });
+        it('debería devolver un array vacío si no hay coincidencias con el estado', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            kata1.setEstado('Terminado');
+    
+            catalogo.agregarKata(kata1);
+    
+            const resultado = catalogo.buscarPorEstado('No Terminado');
+            assert.strictEqual(resultado.length, 0);
         });
     });
     
