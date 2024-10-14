@@ -34,6 +34,16 @@ describe('Kata Functions', function() {
             assert.strictEqual(resultado[1].getDificultad(), 'Facil');
         });
     });
+    it('debería devolver una lista vacía si no hay katas con la dificultad especificada', function() {
+        const catalogo = new CatalogoKata();
+        const kata1 = new Kata('Kata 1', 'Autor A', 'Descripción 1', 'Facil');
+        const kata2 = new Kata('Kata 2', 'Autor B', 'Descripción 2', 'Media');
+        
+        catalogo.agregarKata(kata1);
+        catalogo.agregarKata(kata2);
 
+        const resultado = arrayKatasConMismaDificultad(catalogo, 'Dificil');
+        assert.strictEqual(resultado.length, 0);
+    });
 
 });
