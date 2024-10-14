@@ -4,6 +4,35 @@ const { Kata, CatalogoKata } = require('../src/katas.js');
 describe('CatalogoKata', function() {
     const assert = require('assert');
     const { Kata, CatalogoKata } = require('../src/katas.js');
+    describe('#mostrarPuntuacion()', function() {
+        it('debería devolver la puntuación si ya está establecida', function() {
+            const kata = new Kata();
+            kata.setPuntuacion(5);
+            assert.strictEqual(kata.mostrarPuntuacion(), 5);
+        });
+
+        it('debería devolver "Sin calificar" si la puntuación es -1', function() {
+            const kata = new Kata();
+            kata.setPuntuacion(-1);
+            assert.strictEqual(kata.mostrarPuntuacion(), "Sin calificar");
+        });
+
+        it('debería mantener la puntuación establecida después de cambiarla de -1', function() {
+            const kata = new Kata();
+            kata.setPuntuacion(-1);
+            kata.mostrarPuntuacion();  // Cambiar la puntuación a "Sin calificar"
+            kata.setPuntuacion(8);
+            assert.strictEqual(kata.mostrarPuntuacion(), 8);
+        });
+
+        it('debería manejar puntuaciones que no son -1 correctamente', function() {
+            const kata = new Kata();
+            kata.setPuntuacion(0);
+            assert.strictEqual(kata.mostrarPuntuacion(), 0);
+            kata.setPuntuacion(10);
+            assert.strictEqual(kata.mostrarPuntuacion(), 10);
+        });
+    });
     describe('#eliminarKata()', function() {
         it('debería eliminar una kata en la posición especificada', function() {
             const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
