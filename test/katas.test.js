@@ -173,6 +173,15 @@ describe('CatalogoKata', function() {
             assert.strictEqual(resultado.length, 1);
             assert.strictEqual(resultado[0].getDescripcion(), 'Descripción de kata 1');
         });
+        it('debería devolver un array vacío si no encuentra coincidencias', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+    
+            catalogo.agregarKata(kata1);
+    
+            const resultado = catalogo.buscarPorDescripcion('Descripción inexistente');
+            assert.strictEqual(resultado.length, 0);
+        });
     });
     
 });
