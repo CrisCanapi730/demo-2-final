@@ -188,5 +188,23 @@ describe('CatalogoKata', function() {
             const result = catalogo.buscarPorAutor('Autor A');
             assert.strictEqual(result.length, 0); // The list should be empty
         });
-      });   
+    });
+    describe('#ordenarPorNombre()', function() {
+        it('debería ordenar las katas por nombre en orden alfabético', function() {
+            // Crear instancias de Kata
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.ordenarPorNombre();
+            const listaOrdenada = catalogo.getLista();
+            assert.strictEqual(listaOrdenada[0].getNombre(), 'Kata 1');
+            assert.strictEqual(listaOrdenada[1].getNombre(), 'Kata 2');
+            assert.strictEqual(listaOrdenada[2].getNombre(), 'Kata 3');
+        });
+
+    });
 });
