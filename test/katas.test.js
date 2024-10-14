@@ -158,37 +158,32 @@ describe('CatalogoKata', function() {
             const result = catalogo.buscarPorNombre('Kata 1');
             assert.strictEqual(result.length, 0); // The list should be empty
         });
-    }); 
-    describe('#buscarPorAutor()', function() {
-        it('should find all katas with the given author name', function() {
-          // Create Kata instances
-          const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion 1', 'Facil', 1);
-          const kata2 = new Kata('Kata 2', 'Autor A', 'Descripcion 2', 'Media', 2);
-          const kata3 = new Kata('Kata 3', 'Autor B', 'Descripcion 3', 'Dificil', 3);
-          const catalogo = new CatalogoKata();
-          catalogo.agregarKata(kata1);
-          catalogo.agregarKata(kata2);
-          catalogo.agregarKata(kata3);
-    
-          // Test buscarPorAutor
-          const result = catalogo.buscarPorAutor('Autor A');
-          assert.strictEqual(result.length, 2);
-          assert.strictEqual(result[0].getAutor(), 'Autor A');
-          assert.strictEqual(result[1].getAutor(), 'Autor A');
-        });
-    
-        it('should return an empty array if no katas with the given author name are found', function() {
-          const catalogo = new CatalogoKata();
-          const result = catalogo.buscarPorAutor('NonExistentAuthor');
-          assert.strictEqual(result.length, 0);
-        });
+    });
 
-        it('should handle an empty list without errors', function() {
+    describe('#buscarPorDescripcion()', () => {
+        it('debería encontrar una kata por descripción', () => {
             const catalogo = new CatalogoKata();
-            const result = catalogo.buscarPorAutor('Autor A');
-            assert.strictEqual(result.length, 0); // The list should be empty
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            const kata2 = new Kata('Kata2', 'Autor2', 'Descripción de kata 2', 'Intermedio');
+    
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+    
+            const resultado = catalogo.buscarPorDescripcion('Descripción de kata 1');
+            assert.strictEqual(resultado.length, 1);
+            assert.strictEqual(resultado[0].getDescripcion(), 'Descripción de kata 1');
+        });
+        it('debería devolver un array vacío si no encuentra coincidencias', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+    
+            catalogo.agregarKata(kata1);
+    
+            const resultado = catalogo.buscarPorDescripcion('Descripción inexistente');
+            assert.strictEqual(resultado.length, 0);
         });
     });
+    
     describe('#ordenarPorNombre()', function() {
         it('debería ordenar las katas por nombre en orden alfabético', function() {
             // Crear instancias de Kata
@@ -261,4 +256,87 @@ describe('CatalogoKata', function() {
             assert.strictEqual(listaOrdenada.length, 0);  // La lista debería seguir vacía
         });
     });
+
+    describe('#ordenarPorAutor()', () => {
+        it('debería ordenar las katas por autor en orden alfabético', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Zorro', 'Descripción', 'Fácil');
+            const kata2 = new Kata('Kata2', 'Alonso', 'Descripción', 'Intermedio');
+            const kata3 = new Kata('Kata3', 'Beta', 'Descripción', 'Difícil');
+    
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+    
+            catalogo.ordenarPorAutor();
+            const listaOrdenada = catalogo.getLista();
+    
+            assert.strictEqual(listaOrdenada[0].getAutor(), 'Alonso');
+            assert.strictEqual(listaOrdenada[1].getAutor(), 'Beta');
+            assert.strictEqual(listaOrdenada[2].getAutor(), 'Zorro');
+        });
+    });
+
+    describe('#clone()', () => {
+        it('debería clonar el catálogo de katas', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            const kata2 = new Kata('Kata2', 'Autor2', 'Descripción de kata 2', 'Intermedio');
+    
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+    
+            const catalogoClonado = catalogo.clone();
+    
+            // Verifica que ambos catálogos tienen la misma cantidad de katas
+            assert.strictEqual(catalogoClonado.getLista().length, catalogo.getLista().length);
+    
+            // Verifica que las katas clonadas son iguales a las originales (valores coinciden)
+            assert.strictEqual(catalogoClonado.getLista()[0].getNombre(), catalogo.getLista()[0].getNombre());
+            assert.strictEqual(catalogoClonado.getLista()[1].getNombre(), catalogo.getLista()[1].getNombre());
+    
+            // Verifica que no son el mismo objeto en memoria
+            assert.notStrictEqual(catalogoClonado, catalogo);
+            assert.notStrictEqual(catalogoClonado.getLista()[0], catalogo.getLista()[0]);
+        });
+    });
+
+    describe('#buscarPorEstado()', () => {
+        it('debería encontrar katas con el estado "No Terminado"', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            const kata2 = new Kata('Kata2', 'Autor2', 'Descripción de kata 2', 'Intermedio');
+            
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+    
+            // Por defecto, las katas tienen el estado "No Terminado"
+            const resultado = catalogo.buscarPorEstado('No Terminado');
+            assert.strictEqual(resultado.length, 2); // Ambas katas están "No Terminadas"
+            assert.strictEqual(resultado[0].getEstado(), 'No Terminado');
+            assert.strictEqual(resultado[1].getEstado(), 'No Terminado');
+        });
+        it('debería devolver un array vacío si no hay coincidencias con el estado', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            kata1.setEstado('Terminado');
+    
+            catalogo.agregarKata(kata1);
+    
+            const resultado = catalogo.buscarPorEstado('No Terminado');
+            assert.strictEqual(resultado.length, 0);
+        });
+        it('debería encontrar katas con el estado "Terminado"', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            kata1.setEstado('Terminado');
+    
+            catalogo.agregarKata(kata1);
+    
+            const resultado = catalogo.buscarPorEstado('Terminado');
+            assert.strictEqual(resultado.length, 1);
+            assert.strictEqual(resultado[0].getEstado(), 'Terminado');
+        });
+    });
+    
 });
