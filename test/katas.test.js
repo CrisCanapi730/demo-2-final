@@ -236,6 +236,20 @@ describe('CatalogoKata', function() {
             assert.strictEqual(resultado[0].getAutor(), 'Autor A');
             assert.strictEqual(resultado[1].getAutor(), 'Autor B');
         });
+        it('debería mantener el orden cuando autorA === autorB', function() {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata A', 'Autor A', 'Descripción A', 'Facil');
+            const kata2 = new Kata('Kata B', 'Autor A', 'Descripción B', 'Dificil');
+            
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+    
+            catalogo.ordenarPorAutor();
+            const resultado = catalogo.getLista();
+    
+            assert.strictEqual(resultado[0].getAutor(), 'Autor A');
+            assert.strictEqual(resultado[1].getAutor(), 'Autor A');
+        });
         
     });
     
