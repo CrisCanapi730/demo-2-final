@@ -46,4 +46,7 @@ describe('Kata Functions', function() {
         assert.strictEqual(resultado.length, 0);
     });
 
+
 });
+
+
