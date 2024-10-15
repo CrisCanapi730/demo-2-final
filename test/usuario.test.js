@@ -36,5 +36,10 @@ describe('Docente', () => {
         const docente = new Docente('Luis', 'Docente de física', 85);
         assert.strictEqual(docente.getTipo(), 'docente');
     });
+
+    it('debería retornar la calificación correcta', () => {
+        const docente = new Docente('Luis', 'Docente de física', 85);
+        assert.strictEqual(docente.getCalificacion(), 85);
+    });
 });
 
