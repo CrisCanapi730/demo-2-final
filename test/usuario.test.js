@@ -18,4 +18,9 @@ describe('Estudiante', () => {
         const estudiante = new Estudiante('Ana', 'Estudiante de matemática', 90);
         assert.strictEqual(estudiante.getTipo(), 'estudiante');
     });
+    
+    it('debería retornar el promedio correcto', () => {
+        const estudiante = new Estudiante('Ana', 'Estudiante de matemática', 90);
+        assert.strictEqual(estudiante.getPromedio(), 90);
+    });
 });
