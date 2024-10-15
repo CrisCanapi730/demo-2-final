@@ -312,6 +312,12 @@ describe('CatalogoKata', function() {
             const resultado = catalogo.buscarPorDescripcion('Descripción inexistente');
             assert.strictEqual(resultado.length, 0);
         });
+        
+        it('debería devolver un array vacío si el catálogo está vacío', () => {
+            const catalogo = new CatalogoKata();
+            const resultado = catalogo.buscarPorDescripcion('Descripción cualquiera');
+            assert.strictEqual(resultado.length, 0);
+        });
     });
     
     describe('#ordenarPorNombre()', function() {
