@@ -41,5 +41,11 @@ describe('Docente', () => {
         const docente = new Docente('Luis', 'Docente de física', 85);
         assert.strictEqual(docente.getCalificacion(), 85);
     });
+
+    it('debería heredar el nombre y la descripción de Usuario', () => {
+        const docente = new Docente('Luis', 'Docente de física', 85);
+        assert.strictEqual(docente.getNombre(), 'Luis');
+        assert.strictEqual(docente.getDescripcion(), 'Docente de física');
+    });
 });
 
