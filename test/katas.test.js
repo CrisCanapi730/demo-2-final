@@ -2,6 +2,136 @@ const assert = require('assert');
 const { Kata, CatalogoKata } = require('../src/katas.js');
 
 describe('CatalogoKata', function() {
+    const assert = require('assert');
+    const { Kata, CatalogoKata } = require('../src/katas.js');
+    describe('#mostrarPuntuacion()', function() {
+        it('debería devolver la puntuación si ya está establecida', function() {
+            const kata = new Kata();
+            kata.setPuntuacion(5);
+            assert.strictEqual(kata.mostrarPuntuacion(), 5);
+        });
+
+        it('debería devolver "Sin calificar" si la puntuación es -1', function() {
+            const kata = new Kata();
+            kata.setPuntuacion(-1);
+            assert.strictEqual(kata.mostrarPuntuacion(), "Sin calificar");
+        });
+
+        it('debería mantener la puntuación establecida después de cambiarla de -1', function() {
+            const kata = new Kata();
+            kata.setPuntuacion(-1);
+            kata.mostrarPuntuacion();  // Cambiar la puntuación a "Sin calificar"
+            kata.setPuntuacion(8);
+            assert.strictEqual(kata.mostrarPuntuacion(), 8);
+        });
+
+        it('debería manejar puntuaciones que no son -1 correctamente', function() {
+            const kata = new Kata();
+            kata.setPuntuacion(0);
+            assert.strictEqual(kata.mostrarPuntuacion(), 0);
+            kata.setPuntuacion(10);
+            assert.strictEqual(kata.mostrarPuntuacion(), 10);
+        });
+    });
+    describe('#eliminarKata()', function() {
+        it('debería eliminar una kata en la posición especificada', function() {
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.eliminarKata(1);  // Eliminar 'Kata 2'
+            const listaEsperada = [kata1, kata3];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+
+        it('debería manejar la eliminación con una posición fuera de rango', function() {
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.eliminarKata(10);  // Posición fuera de rango
+            const listaEsperada = [kata1, kata2];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+
+        it('debería manejar la eliminación con una lista vacía', function() {
+            const catalogo = new CatalogoKata();
+            catalogo.eliminarKata(0);  // Intentar eliminar en una lista vacía
+            const listaEsperada = [];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+
+        it('debería manejar la eliminación del primer elemento', function() {
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.eliminarKata(0);  // Eliminar 'Kata 1'
+            const listaEsperada = [kata2, kata3];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+
+        it('debería manejar la eliminación del último elemento', function() {
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.eliminarKata(2);  // Eliminar 'Kata 3'
+            const listaEsperada = [kata1, kata2];
+            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
+        });
+    });
+    
+    describe('#mostrarCatalogoKatas()', function() {
+        it('debería mostrar el catálogo de katas correctamente', function() {
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            const resultadoEsperado = `${kata1.mostrar()}${kata2.mostrar()}${kata3.mostrar()}`;
+            assert.strictEqual(catalogo.mostrarCatalogoKatas(), resultadoEsperado);
+        });
+
+        it('debería manejar un catálogo vacío', function() {
+            const catalogo = new CatalogoKata();
+            const resultadoEsperado = "";
+            assert.strictEqual(catalogo.mostrarCatalogoKatas(), resultadoEsperado);
+        });
+
+        it('debería mostrar correctamente un catálogo con una sola kata', function() {
+            const kata = new Kata('Kata Unica', 'Autor Unico', 'Descripcion Unica', 'Facil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata);
+            const resultadoEsperado = kata.mostrar();
+            assert.strictEqual(catalogo.mostrarCatalogoKatas(), resultadoEsperado);
+        });
+
+        it('debería manejar katas con caracteres especiales en sus descripciones', function() {
+            const kata1 = new Kata('Kata #1', 'Autor A', 'Descripcion #1', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion @2', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion &3', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            const resultadoEsperado = `${kata1.mostrar()}${kata2.mostrar()}${kata3.mostrar()}`;
+            assert.strictEqual(catalogo.mostrarCatalogoKatas(), resultadoEsperado);
+        });
+    });
+
     describe('#ordenarPorDescripcion()', function() {
         it('debería ordenar las katas por descripción en orden alfabético', function() {
             // Crear instancias de Kata
@@ -118,25 +248,25 @@ describe('CatalogoKata', function() {
     describe('#buscarPorNombre()', function() {
         it('should find all katas with the given name', function() {
           // Create Kata instances
-          const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion 1', 'Facil', 1);
-          const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion 2', 'Media', 2);
-          const kata3 = new Kata('Kata 2', 'Autor C', 'Descripcion 3', 'Dificil', 3);
-          const catalogo = new CatalogoKata();
-          catalogo.agregarKata(kata1);
-          catalogo.agregarKata(kata2);
-          catalogo.agregarKata(kata3);
-    
-          // Test buscarPorNombre
-          const result = catalogo.buscarPorNombre('Kata 2');
-          assert.strictEqual(result.length, 2);
-          assert.strictEqual(result[0].getNombre(), 'Kata 2');
-          assert.strictEqual(result[1].getNombre(), 'Kata 2');
-        });
-    
-        it('should return an empty array if no katas with the given name are found', function() {
-          const catalogo = new CatalogoKata();
-          const result = catalogo.buscarPorNombre('NonExistentKata');
-          assert.strictEqual(result.length, 0);
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion 1', 'Facil', 1);
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion 2', 'Media', 2);
+            const kata3 = new Kata('Kata 2', 'Autor C', 'Descripcion 3', 'Dificil', 3);
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+        
+            // Test buscarPorNombre
+            const result = catalogo.buscarPorNombre('Kata 2');
+            assert.strictEqual(result.length, 2);
+            assert.strictEqual(result[0].getNombre(), 'Kata 2');
+            assert.strictEqual(result[1].getNombre(), 'Kata 2');
+            });
+        
+            it('should return an empty array if no katas with the given name are found', function() {
+            const catalogo = new CatalogoKata();
+            const result = catalogo.buscarPorNombre('NonExistentKata');
+            assert.strictEqual(result.length, 0);
         });
 
         it('should handle case insensitivity', function() {
@@ -184,23 +314,76 @@ describe('CatalogoKata', function() {
         });
     });
     
-    describe('#ordenarPorNombre()', () => {
-        it('debería ordenar las katas por nombre en orden alfabético', () => {
+    describe('#ordenarPorNombre()', function() {
+        it('debería ordenar las katas por nombre en orden alfabético', function() {
+            // Crear instancias de Kata
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion', 'Dificil');
             const catalogo = new CatalogoKata();
-            const kata1 = new Kata('Zeta', 'Autor1', 'Descripción', 'Fácil');
-            const kata2 = new Kata('Alfa', 'Autor2', 'Descripción', 'Intermedio');
-            const kata3 = new Kata('Beta', 'Autor3', 'Descripción', 'Difícil');
-    
             catalogo.agregarKata(kata1);
             catalogo.agregarKata(kata2);
             catalogo.agregarKata(kata3);
-    
             catalogo.ordenarPorNombre();
             const listaOrdenada = catalogo.getLista();
-    
-            assert.strictEqual(listaOrdenada[0].getNombre(), 'Alfa');
-            assert.strictEqual(listaOrdenada[1].getNombre(), 'Beta');
-            assert.strictEqual(listaOrdenada[2].getNombre(), 'Zeta');
+            assert.strictEqual(listaOrdenada[0].getNombre(), 'Kata 1');
+            assert.strictEqual(listaOrdenada[1].getNombre(), 'Kata 2');
+            assert.strictEqual(listaOrdenada[2].getNombre(), 'Kata 3');
+        });
+
+        it('debería ordenar las katas sin distinguir entre mayúsculas y minúsculas', function() {
+            // Crear instancias de Kata con nombres en mayúsculas y minúsculas
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion', 'Facil');
+            const kata2 = new Kata('kata 2', 'Autor B', 'Descripcion', 'Media');
+            const kata3 = new Kata('KATA 3', 'Autor C', 'Descripcion', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.ordenarPorNombre();
+            const listaOrdenada = catalogo.getLista();
+            assert.strictEqual(listaOrdenada[0].getNombre().toLowerCase(), 'kata 1');
+            assert.strictEqual(listaOrdenada[1].getNombre().toLowerCase(), 'kata 2');
+            assert.strictEqual(listaOrdenada[2].getNombre().toLowerCase(), 'kata 3');
+        });
+
+        it('debería manejar nombres idénticos sin errores', function() {
+            // Crear instancias de Kata con nombres iguales
+            const kata1 = new Kata('Kata', 'Autor A', 'Descripcion', 'Facil');
+            const kata2 = new Kata('Kata', 'Autor B', 'Descripcion', 'Media');
+            const kata3 = new Kata('Kata', 'Autor C', 'Descripcion', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.ordenarPorNombre();
+            const listaOrdenada = catalogo.getLista();
+            assert.strictEqual(listaOrdenada[0].getNombre(), 'Kata');
+            assert.strictEqual(listaOrdenada[1].getNombre(), 'Kata');
+            assert.strictEqual(listaOrdenada[2].getNombre(), 'Kata');
+        });
+
+        it('debería ordenar las katas con caracteres especiales', function() {
+            const kata1 = new Kata('Kata #1', 'Autor A', 'Descripcion', 'Facil');
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion', 'Media');
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion', 'Dificil');
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+            catalogo.ordenarPorNombre();
+            const listaOrdenada = catalogo.getLista();
+            assert.strictEqual(listaOrdenada[0].getNombre(), 'Kata #1');
+            assert.strictEqual(listaOrdenada[1].getNombre(), 'Kata 2');
+            assert.strictEqual(listaOrdenada[2].getNombre(), 'Kata 3');
+        });
+
+        it('debería manejar una lista vacía sin errores', function() {
+            const catalogo = new CatalogoKata();
+            // Intentar ordenar una lista vacía
+            catalogo.ordenarPorNombre();
+            const listaOrdenada = catalogo.getLista();
+            assert.strictEqual(listaOrdenada.length, 0);  // La lista debería seguir vacía
         });
     });
 
@@ -222,7 +405,51 @@ describe('CatalogoKata', function() {
             assert.strictEqual(listaOrdenada[1].getAutor(), 'Beta');
             assert.strictEqual(listaOrdenada[2].getAutor(), 'Zorro');
         });
+        it('debería ordenar correctamente cuando autorA < autorB', function() {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata A', 'Autor A', 'Descripción A', 'Facil');
+            const kata2 = new Kata('Kata B', 'Autor B', 'Descripción B', 'Dificil');
+            
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+    
+            catalogo.ordenarPorAutor();
+            const resultado = catalogo.getLista();
+    
+            assert.strictEqual(resultado[0].getAutor(), 'Autor A');
+            assert.strictEqual(resultado[1].getAutor(), 'Autor B');
+        });
+        it('debería mantener el orden cuando autorA === autorB', function() {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata A', 'Autor A', 'Descripción A', 'Facil');
+            const kata2 = new Kata('Kata B', 'Autor A', 'Descripción B', 'Dificil');
+            
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+    
+            catalogo.ordenarPorAutor();
+            const resultado = catalogo.getLista();
+    
+            assert.strictEqual(resultado[0].getAutor(), 'Autor A');
+            assert.strictEqual(resultado[1].getAutor(), 'Autor A');
+        });
+        it('debería ordenar correctamente cuando autorA > autorB', function() {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata A', 'Autor B', 'Descripción A', 'Facil');
+            const kata2 = new Kata('Kata B', 'Autor A', 'Descripción B', 'Dificil');
+            
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+    
+            catalogo.ordenarPorAutor();
+            const resultado = catalogo.getLista();
+    
+            assert.strictEqual(resultado[0].getAutor(), 'Autor A');
+            assert.strictEqual(resultado[1].getAutor(), 'Autor B');
+        });
+        
     });
+    
 
     describe('#clone()', () => {
         it('debería clonar el catálogo de katas', () => {
