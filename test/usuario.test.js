@@ -7,4 +7,8 @@ describe('Usuario', () => {
         const usuario = new Usuario('Carlos', 'Usuario de prueba');
         assert.strictEqual(usuario.getNombre(), 'Carlos');
     });
+    it('debería retornar la descripción correcta', () => {
+        const usuario = new Usuario('Carlos', 'Usuario de prueba');
+        assert.strictEqual(usuario.getDescripcion(), 'Usuario de prueba');
+    });
 });
