@@ -12,3 +12,10 @@ describe('Usuario', () => {
         assert.strictEqual(usuario.getDescripcion(), 'Usuario de prueba');
     });
 });
+
+describe('Estudiante', () => {
+    it('debería retornar el tipo "estudiante"', () => {
+        const estudiante = new Estudiante('Ana', 'Estudiante de matemática', 90);
+        assert.strictEqual(estudiante.getTipo(), 'estudiante');
+    });
+});
