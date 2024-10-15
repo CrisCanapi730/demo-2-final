@@ -316,39 +316,36 @@ describe('CatalogoKata', function() {
     
     describe('#ordenarPorNombre()', function() {
         it('debería ordenar las katas por nombre en orden alfabético', function() {
-            // Crear instancias de Kata
-            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion', 'Facil');
-            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion', 'Media');
-            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion', 'Dificil');
+            const kata1 = new Kata('Zeta', 'Autor A', 'Descripcion', 'Facil');
+            const kata2 = new Kata('Alpha', 'Autor B', 'Descripcion', 'Media');
+            const kata3 = new Kata('Beta', 'Autor C', 'Descripcion', 'Dificil');
             const catalogo = new CatalogoKata();
             catalogo.agregarKata(kata1);
             catalogo.agregarKata(kata2);
             catalogo.agregarKata(kata3);
             catalogo.ordenarPorNombre();
             const listaOrdenada = catalogo.getLista();
-            assert.strictEqual(listaOrdenada[0].getNombre(), 'Kata 1');
-            assert.strictEqual(listaOrdenada[1].getNombre(), 'Kata 2');
-            assert.strictEqual(listaOrdenada[2].getNombre(), 'Kata 3');
+            assert.strictEqual(listaOrdenada[0].getNombre(), 'Alpha');
+            assert.strictEqual(listaOrdenada[1].getNombre(), 'Beta');
+            assert.strictEqual(listaOrdenada[2].getNombre(), 'Zeta');
         });
 
         it('debería ordenar las katas sin distinguir entre mayúsculas y minúsculas', function() {
-            // Crear instancias de Kata con nombres en mayúsculas y minúsculas
-            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion', 'Facil');
-            const kata2 = new Kata('kata 2', 'Autor B', 'Descripcion', 'Media');
-            const kata3 = new Kata('KATA 3', 'Autor C', 'Descripcion', 'Dificil');
+            const kata1 = new Kata('Zeta', 'Autor A', 'Descripcion', 'Facil');
+            const kata2 = new Kata('alpha', 'Autor B', 'Descripcion', 'Media');
+            const kata3 = new Kata('Beta', 'Autor C', 'Descripcion', 'Dificil');
             const catalogo = new CatalogoKata();
             catalogo.agregarKata(kata1);
             catalogo.agregarKata(kata2);
             catalogo.agregarKata(kata3);
             catalogo.ordenarPorNombre();
             const listaOrdenada = catalogo.getLista();
-            assert.strictEqual(listaOrdenada[0].getNombre().toLowerCase(), 'kata 1');
-            assert.strictEqual(listaOrdenada[1].getNombre().toLowerCase(), 'kata 2');
-            assert.strictEqual(listaOrdenada[2].getNombre().toLowerCase(), 'kata 3');
+            assert.strictEqual(listaOrdenada[0].getNombre().toLowerCase(), 'alpha');
+            assert.strictEqual(listaOrdenada[1].getNombre().toLowerCase(), 'beta');
+            assert.strictEqual(listaOrdenada[2].getNombre().toLowerCase(), 'zeta');
         });
 
         it('debería manejar nombres idénticos sin errores', function() {
-            // Crear instancias de Kata con nombres iguales
             const kata1 = new Kata('Kata', 'Autor A', 'Descripcion', 'Facil');
             const kata2 = new Kata('Kata', 'Autor B', 'Descripcion', 'Media');
             const kata3 = new Kata('Kata', 'Autor C', 'Descripcion', 'Dificil');
@@ -380,7 +377,6 @@ describe('CatalogoKata', function() {
 
         it('debería manejar una lista vacía sin errores', function() {
             const catalogo = new CatalogoKata();
-            // Intentar ordenar una lista vacía
             catalogo.ordenarPorNombre();
             const listaOrdenada = catalogo.getLista();
             assert.strictEqual(listaOrdenada.length, 0);  // La lista debería seguir vacía
