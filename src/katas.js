@@ -226,7 +226,6 @@ class CatalogoKata{
             }
         }
         return coincidencias;
-
     }
 }
 
