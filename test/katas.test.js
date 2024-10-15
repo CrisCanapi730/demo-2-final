@@ -405,28 +405,11 @@ describe('CatalogoKata', function() {
     });
 
     describe('#ordenarPorAutor()', () => {
-        it('debería ordenar las katas por autor en orden alfabético', () => {
-            const catalogo = new CatalogoKata();
-            const kata1 = new Kata('Kata1', 'Zorro', 'Descripción', 'Fácil');
-            const kata2 = new Kata('Kata2', 'Alonso', 'Descripción', 'Intermedio');
-            const kata3 = new Kata('Kata3', 'Beta', 'Descripción', 'Difícil');
-    
-            catalogo.agregarKata(kata1);
-            catalogo.agregarKata(kata2);
-            catalogo.agregarKata(kata3);
-    
-            catalogo.ordenarPorAutor();
-            const listaOrdenada = catalogo.getLista();
-    
-            assert.strictEqual(listaOrdenada[0].getAutor(), 'Alonso');
-            assert.strictEqual(listaOrdenada[1].getAutor(), 'Beta');
-            assert.strictEqual(listaOrdenada[2].getAutor(), 'Zorro');
-        });
         it('debería ordenar correctamente cuando autorA < autorB', function() {
             const catalogo = new CatalogoKata();
             const kata1 = new Kata('Kata A', 'Autor A', 'Descripción A', 'Facil');
             const kata2 = new Kata('Kata B', 'Autor B', 'Descripción B', 'Dificil');
-            
+
             catalogo.agregarKata(kata1);
             catalogo.agregarKata(kata2);
     
@@ -528,6 +511,16 @@ describe('CatalogoKata', function() {
             assert.strictEqual(resultado.length, 1);
             assert.strictEqual(resultado[0].getEstado(), 'Terminado');
         });
+        it('debería retornar false al intentar establecer un estado inválido', () => {
+            const kata = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            
+            const resultado = kata.setEstado('En progreso'); // Estado inválido
+            
+            assert.strictEqual(resultado, false); // Debería retornar false
+            assert.notStrictEqual(kata.getEstado(), 'En progreso'); // Asegurarse de que el estado no cambie
+        });
+        
+
     });
     
 });
