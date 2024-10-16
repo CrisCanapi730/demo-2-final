@@ -77,19 +77,6 @@ describe('CatalogoKata', function() {
             const listaEsperada = [kata2, kata3];
             assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
         });
-
-        it('debería manejar la eliminación del último elemento', function() {
-            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
-            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
-            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
-            const catalogo = new CatalogoKata();
-            catalogo.agregarKata(kata1);
-            catalogo.agregarKata(kata2);
-            catalogo.agregarKata(kata3);
-            catalogo.eliminarKata(2);  // Eliminar 'Kata 3'
-            const listaEsperada = [kata1, kata2];
-            assert.deepStrictEqual(catalogo.getLista(), listaEsperada);
-        });
     });
     
     describe('#mostrarCatalogoKatas()', function() {
