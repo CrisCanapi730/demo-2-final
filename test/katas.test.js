@@ -299,6 +299,27 @@ describe('CatalogoKata', function() {
             const resultado = catalogo.buscarPorDescripcion('Descripción inexistente');
             assert.strictEqual(resultado.length, 0);
         });
+
+        it('debería devolver un array vacío si el catálogo está vacío', () => {
+            const catalogo = new CatalogoKata();
+            const resultado = catalogo.buscarPorDescripcion('Descripción cualquiera');
+            assert.strictEqual(resultado.length, 0);
+        });
+
+        it('debería devolver todas las katas que coinciden con la descripción', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción duplicada', 'Fácil');
+            const kata2 = new Kata('Kata2', 'Autor2', 'Descripción duplicada', 'Difícil');
+        
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+        
+            const resultado = catalogo.buscarPorDescripcion('Descripción duplicada');
+            assert.strictEqual(resultado.length, 2);
+            assert.strictEqual(resultado[0].getDescripcion(), 'Descripción duplicada');
+            assert.strictEqual(resultado[1].getDescripcion(), 'Descripción duplicada');
+        });
+        
     });
     
     describe('#ordenarPorNombre()', function() {
