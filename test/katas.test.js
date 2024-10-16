@@ -498,6 +498,19 @@ describe('CatalogoKata', function() {
             assert.strictEqual(resultado, false); // Debería retornar false
             assert.notStrictEqual(kata.getEstado(), 'En progreso'); // Asegurarse de que el estado no cambie
         });
+        // buscar por autor
+        it('debería encontrar una coincidencia de autor', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            catalogo.agregarKata(kata1);
+            
+            const resultado = catalogo.buscarPorAutor('Autor1');
+            
+            assert.strictEqual(resultado.length, 1); // Debería encontrar una coincidencia
+            assert.strictEqual(resultado[0].getAutor(), 'Autor1');
+        });
+        
+        
         
 
     });
