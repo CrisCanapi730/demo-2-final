@@ -1,6 +1,9 @@
 {
     "include": ["src/**/*.js"],
     "reporter": ["html", "text"],
-    "all": true
-  }
+    "all": true,
+    "exclude": [
+      "src/presenter.js"
+    ]
+}
   
