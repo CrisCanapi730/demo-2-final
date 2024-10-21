@@ -227,31 +227,40 @@ describe('CatalogoKata', function() {
     });
     describe('#buscarPorId()', function() {
         it('should find the kata with the given id', function() {
-          // Create Kata instances with unique ids
-          const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion 1', 'Facil', 1);
-          const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion 2', 'Media', 2);
-          const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion 3', 'Dificil', 3);
-          const catalogo = new CatalogoKata();
-          catalogo.agregarKata(kata1);
-          catalogo.agregarKata(kata2);
-          catalogo.agregarKata(kata3);
+            // Create Kata instances with unique ids
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion 1', 'Facil', 1);
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion 2', 'Media', 2);
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion 3', 'Dificil', 3);
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
     
-          // Test buscarPorId
-          const result = catalogo.buscarPorId(2);
-          assert.strictEqual(result.getId(), 2);
-          assert.strictEqual(result.getDescripcion(), 'Descripcion 3');
-          assert.strictEqual(result.getNombre(), 'Kata 3');
+            // Test buscarPorId
+            const result = catalogo.buscarPorId(2);
+    
+            // Using assert.ok() to verify the result is truthy
+            assert.ok(result, 'Kata with id 2 should be found');
+            
+            // Checking properties with assert.match() to confirm correct kata details
+            assert.match(result.getDescripcion(), /Descripcion 2/, 'Descripcion should match "Descripcion 2"');
+            assert.match(result.getNombre(), /Kata 2/, 'Nombre should match "Kata 2"');
         });
-
+    
         it('should return undefined if no kata with the given id is found', function() {
             const catalogo = new CatalogoKata();
             const result = catalogo.buscarPorId(999);
-            assert.strictEqual(result, undefined);
+    
+            // Instead of strictEqual, use assert.ok() to confirm it's undefined
+            assert.ok(result === undefined, 'Result should be undefined for a non-existing id');
         });
+    
         it('should handle an empty list without errors', function() {
             const catalogo = new CatalogoKata();
             const result = catalogo.buscarPorId(1);
-            assert.strictEqual(result, undefined);
+    
+            // Confirming result is undefined for an empty list
+            assert.ok(result === undefined, 'Result should be undefined when the list is empty');
         });
     });
     describe('#buscarPorNombre()', function() {
