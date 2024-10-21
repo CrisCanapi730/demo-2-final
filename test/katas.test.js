@@ -235,16 +235,12 @@ describe('CatalogoKata', function() {
             catalogo.agregarKata(kata1);
             catalogo.agregarKata(kata2);
             catalogo.agregarKata(kata3);
-    
+      
             // Test buscarPorId
             const result = catalogo.buscarPorId(2);
-    
-            // Using assert.ok() to verify the result is truthy
-            assert.ok(result, 'Kata with id 2 should be found');
-            
-            // Checking properties with assert.match() to confirm correct kata details
-            assert.match(result.getDescripcion(), /Descripcion 2/, 'Descripcion should match "Descripcion 2"');
-            assert.match(result.getNombre(), /Kata 2/, 'Nombre should match "Kata 2"');
+            assert.strictEqual(result.getId(), 2);
+            assert.strictEqual(result.getDescripcion(), 'Descripcion 3');
+            assert.strictEqual(result.getNombre(), 'Kata 3');
         });
     
         it('should return undefined if no kata with the given id is found', function() {
