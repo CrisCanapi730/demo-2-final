@@ -7,33 +7,58 @@ const { Kata, CatalogoKata } = require('../src/katas.js');
 describe('Kata Functions', function() {
     
     describe('buscarPorDificultad', function() {
-        it('debería devolver true si la dificultad coincide', function() {
-            const kata = new Kata('Kata 1', 'Autor A', 'Descripción 1', 'Facil');
-            assert.strictEqual(buscarPorDificultad(kata, 'Facil'), true);
+        let kata;
+        beforeEach(function() {
+            kata = new Kata('Kata 1', 'Autor A', 'Descripción 1', 'Facil');
         });
-
-        it('debería devolver false si la dificultad no coincide', function() {
-            const kata = new Kata('Kata 1', 'Autor A', 'Descripción 1', 'Media');
+        afterEach(function() {
+            kata = null;
+        });
+        it('debería devolver true si la dificultad coincide y el objeto kata tiene las propiedades correctas', function() {
+            assert.ok(kata.getNombre(), 'Kata 1');
+            assert.ok(kata.getAutor(), 'Autor A');
+            assert.ok(kata.getDescripcion(), 'Descripción 1');
+            assert.strictEqual(buscarPorDificultad(kata, 'Facil'), true);
+            assert.deepStrictEqual(kata, new Kata('Kata 1', 'Autor A', 'Descripción 1', 'Facil'));
+        });
+    
+        it('debería devolver false si la dificultad no coincide y verificar que la dificultad cambia correctamente', function() {
+            kata.setDificultad('Media');
             assert.strictEqual(buscarPorDificultad(kata, 'Dificil'), false);
+            assert.strictEqual(kata.getDificultad(), 'Media');
+            assert.strictEqual(kata.getNombre(), 'Kata 1');
+            assert.strictEqual(kata.getAutor(), 'Autor A');
         });
     });
+    
+    
     describe('arrayKatasConMismaDificultad', function() {
-        it('debería devolver una lista de katas con la misma dificultad', function() {
-            const catalogo = new CatalogoKata();
-            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripción 1', 'Facil');
-            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripción 2', 'Facil');
-            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripción 3', 'Dificil');
+        let catalogo, kata1, kata2, kata3;
+        beforeEach(function() {
+            catalogo = new CatalogoKata();
+            kata1 = new Kata('Kata 1', 'Autor A', 'Descripción 1', 'Facil');
+            kata2 = new Kata('Kata 2', 'Autor B', 'Descripción 2', 'Facil');
+            kata3 = new Kata('Kata 3', 'Autor C', 'Descripción 3', 'Dificil');
             
             catalogo.agregarKata(kata1);
             catalogo.agregarKata(kata2);
             catalogo.agregarKata(kata3);
-
+        });
+        afterEach(function() {
+            catalogo = null;
+            kata1 = null;
+            kata2 = null;
+            kata3 = null;
+        });
+    
+        it('debería devolver una lista de katas con la misma dificultad', function() {
             const resultado = arrayKatasConMismaDificultad(catalogo, 'Facil');
             assert.strictEqual(resultado.length, 2);
             assert.strictEqual(resultado[0].getDificultad(), 'Facil');
             assert.strictEqual(resultado[1].getDificultad(), 'Facil');
         });
     });
+    
     describe('Mostrar katas', function() {
         it('debería devolver un string con las descripciones de las katas concatenadas', function() {
             const listaKatas = [
