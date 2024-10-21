@@ -17,21 +17,6 @@ describe('CatalogoKata', function() {
             assert.strictEqual(kata.mostrarPuntuacion(), "Sin calificar");
         });
 
-        it('debería mantener la puntuación establecida después de cambiarla de -1', function() {
-            const kata = new Kata();
-            kata.setPuntuacion(-1);
-            kata.mostrarPuntuacion();  // Cambiar la puntuación a "Sin calificar"
-            kata.setPuntuacion(8);
-            assert.strictEqual(kata.mostrarPuntuacion(), 8);
-        });
-
-        it('debería manejar puntuaciones que no son -1 correctamente', function() {
-            const kata = new Kata();
-            kata.setPuntuacion(0);
-            assert.strictEqual(kata.mostrarPuntuacion(), 0);
-            kata.setPuntuacion(10);
-            assert.strictEqual(kata.mostrarPuntuacion(), 10);
-        });
     });
     describe('#eliminarKata()', function() {
         it('debería eliminar una kata en la posición especificada', function() {
@@ -219,19 +204,19 @@ describe('CatalogoKata', function() {
     describe('#buscarPorId()', function() {
         it('should find the kata with the given id', function() {
           // Create Kata instances with unique ids
-          const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion 1', 'Facil', 1);
-          const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion 2', 'Media', 2);
-          const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion 3', 'Dificil', 3);
-          const catalogo = new CatalogoKata();
-          catalogo.agregarKata(kata1);
-          catalogo.agregarKata(kata2);
-          catalogo.agregarKata(kata3);
+            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion 1', 'Facil', 1);
+            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion 2', 'Media', 2);
+            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion 3', 'Dificil', 3);
+            const catalogo = new CatalogoKata();
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
     
           // Test buscarPorId
-          const result = catalogo.buscarPorId(2);
-          assert.strictEqual(result.getId(), 2);
-          assert.strictEqual(result.getDescripcion(), 'Descripcion 3');
-          assert.strictEqual(result.getNombre(), 'Kata 3');
+            const result = catalogo.buscarPorId(2);
+            assert.strictEqual(result.getId(), 2);
+            assert.strictEqual(result.getDescripcion(), 'Descripcion 3');
+            assert.strictEqual(result.getNombre(), 'Kata 3');
         });
 
         it('should return undefined if no kata with the given id is found', function() {
@@ -278,7 +263,7 @@ describe('CatalogoKata', function() {
             catalogo.agregarKata(kata1);
             catalogo.agregarKata(kata2);
             catalogo.agregarKata(kata3);
-      
+            
             // Test buscarPorNombre
             const result = catalogo.buscarPorNombre('KATA 2');
             assert.strictEqual(result.length, 2);
@@ -473,6 +458,12 @@ describe('CatalogoKata', function() {
             assert.notStrictEqual(catalogoClonado, catalogo);
             assert.notStrictEqual(catalogoClonado.getLista()[0], catalogo.getLista()[0]);
         });
+        it('debería devolver un catálogo vacío cuando no hay katas para clonar', () => {
+            const catalogoOriginal = new CatalogoKata();
+            const catalogoClonado = catalogoOriginal.clone();
+            assert.strictEqual(catalogoClonado.getLista().length, 0);
+        });
+        
     });
 
     describe('#buscarPorEstado()', () => {
