@@ -60,25 +60,34 @@ describe('Kata Functions', function() {
     });
     
     describe('Mostrar katas', function() {
-        it('debería devolver un string con las descripciones de las katas concatenadas', function() {
-            const listaKatas = [
+        let listaKatas;
+    
+
+        beforeEach(function() {
+            listaKatas = [
                 new Kata('Kata 1', 'Autor A', 'Descripción 1', 'Facil'),
                 new Kata('Kata 2', 'Autor B', 'Descripción 2', 'Facil')
             ];
-            
             listaKatas[0].mostrar = function() { return 'Kata 1: Descripción 1'; };
             listaKatas[1].mostrar = function() { return 'Kata 2: Descripción 2'; };
-            
+        });
+    
+        afterEach(function() {
+            listaKatas = null;
+        });
+    
+        it('debería devolver un string con las descripciones de las katas concatenadas', function() {
             const resultadoEsperado = 'Kata 1: Descripción 1Kata 2: Descripción 2';
             assert.strictEqual(mostrarKatas(listaKatas), resultadoEsperado);
         });
+    
         it('debería devolver un string vacío si no hay katas en la lista', function() {
-            const listaKatas = [];
-        
+            listaKatas = [];
             const resultadoEsperado = '';
             assert.strictEqual(mostrarKatas(listaKatas), resultadoEsperado);
         });
     });
+    
 });
 
 
