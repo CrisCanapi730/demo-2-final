@@ -26,7 +26,7 @@ describe('CatalogoKata', function() {
 
 
 
-        
+
 
         it('debería mantener la puntuación establecida después de cambiarla de -1', function() {
             const kata = new Kata();
@@ -561,6 +561,33 @@ describe('CatalogoKata', function() {
             assert.strictEqual(resultado.length, 1); // Debería encontrar una coincidencia
             assert.strictEqual(resultado[0].getAutor(), 'Autor1');
         });
+        it('debería encontrar katas del autor especificado', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            const kata2 = new Kata('Kata2', 'Autor2', 'Descripción de kata 2', 'Intermedio');
+            const kata3 = new Kata('Kata3', 'Autor1', 'Descripción de kata 3', 'Difícil');
+            
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+            catalogo.agregarKata(kata3);
+        
+            const resultado = catalogo.buscarPorAutor('Autor1');
+            assert.strictEqual(resultado.length, 2); // Debería haber dos katas del 'Autor1'
+            assert.strictEqual(resultado[0].getAutor(), 'Autor1'); // La primera coincidencia es del 'Autor1'
+            assert.strictEqual(resultado[1].getAutor(), 'Autor1'); // La segunda coincidencia es del 'Autor1'
+        });
+    
+        it('no debería encontrar katas si no hay coincidencias con el autor especificado', () => {
+            const catalogo = new CatalogoKata();
+            const kata1 = new Kata('Kata1', 'Autor1', 'Descripción de kata 1', 'Fácil');
+            const kata2 = new Kata('Kata2', 'Autor2', 'Descripción de kata 2', 'Intermedio');
+            
+            catalogo.agregarKata(kata1);
+            catalogo.agregarKata(kata2);
+        
+            const resultado = catalogo.buscarPorAutor('Autor3');
+            assert.strictEqual(resultado.length, 0); // No debería haber katas del 'Autor3'
+        });
     });
 
     describe('Kata - getDescCorta', function() {
@@ -570,6 +597,34 @@ describe('CatalogoKata', function() {
             assert.strictEqual(kata1.getDescCorta(), descripcion);
         });
     });
+    describe('Kata sets', () => {
+
+        it('debería permitir establecer el nombre de la kata con setNombre()', () => {
+            const kata = new Kata();
+            kata.setNombre('Kata1');
+            assert.strictEqual(kata.getNombre(), 'Kata1');
+        });
+    
+        it('debería permitir establecer el autor de la kata con setAutor()', () => {
+            const kata = new Kata();
+            kata.setAutor('Autor1');
+            assert.strictEqual(kata.getAutor(), 'Autor1');
+        });
+    
+        it('debería permitir establecer la descripción de la kata con setDescripcion()', () => {
+            const kata = new Kata();
+            kata.setDescripcion('Descripción de kata 1');
+            assert.strictEqual(kata.getDescripcion(), 'Descripción de kata 1');
+        });
+    
+        it('debería permitir establecer la dificultad de la kata con setDificultad()', () => {
+            const kata = new Kata();
+            kata.setDificultad('Fácil');
+            assert.strictEqual(kata.getDificultad(), 'Fácil');
+        });
+    
+    });
+    
     
     
     
