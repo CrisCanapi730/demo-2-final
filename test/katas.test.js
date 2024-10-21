@@ -1,6 +1,8 @@
 const assert = require('assert');
 const { Kata, CatalogoKata } = require('../src/katas.js');
 
+let catalogo, kata1, kata2;
+
 describe('CatalogoKata', function() {
     const assert = require('assert');
     const { Kata, CatalogoKata } = require('../src/katas.js');
