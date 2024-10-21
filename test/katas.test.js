@@ -7,39 +7,36 @@ describe('CatalogoKata', function() {
     const assert = require('assert');
     const { Kata, CatalogoKata } = require('../src/katas.js');
     describe('#mostrarPuntuacion()', function() {
+        let kata;
+    
+        // Setup: Runs before each test to create a fresh instance of Kata
+        beforeEach(function() {
+            kata = new Kata(); // New Kata instance for each test
+        });
+    
+        // Teardown: Runs after each test to clean up if necessary
+        afterEach(function() {
+            kata = null; // Reset kata instance after each test
+        });
+    
         it('debería devolver la puntuación si ya está establecida', function() {
-            const kata = new Kata();
             kata.setPuntuacion(5);
             assert.ok(kata.mostrarPuntuacion() > 0, 'Puntuación debería ser mayor que 0');
         });
-
+    
         it('debería devolver "Sin calificar" si la puntuación es -1', function() {
-            const kata = new Kata();
             kata.setPuntuacion(-1);
             assert.notDeepStrictEqual(kata.mostrarPuntuacion(), 5, 'Puntuación no debería ser 5');
         });
-
-
-
-
-
-
-
-
-
-
-
-
+    
         it('debería mantener la puntuación establecida después de cambiarla de -1', function() {
-            const kata = new Kata();
             kata.setPuntuacion(-1);
             kata.mostrarPuntuacion();  // Cambiar la puntuación a "Sin calificar"
             kata.setPuntuacion(8);
             assert.strictEqual(kata.mostrarPuntuacion(), 8);
         });
-
+    
         it('debería manejar puntuaciones que no son -1 correctamente', function() {
-            const kata = new Kata();
             kata.setPuntuacion(0);
             assert.strictEqual(kata.mostrarPuntuacion(), 0);
             kata.setPuntuacion(10);
@@ -47,15 +44,28 @@ describe('CatalogoKata', function() {
         });
     });
     describe('#eliminarKata()', function() {
-        it('debería eliminar una kata en la posición especificada', function() {
-            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
-            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
-            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
-            const catalogo = new CatalogoKata();
+        let catalogo, kata1, kata2, kata3;
+    
+        beforeEach(function() {
+            // Setup before each test
+            kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
+            kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
+            kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
+            catalogo = new CatalogoKata();
             catalogo.agregarKata(kata1);
             catalogo.agregarKata(kata2);
             catalogo.agregarKata(kata3);
+        });
     
+        afterEach(function() {
+            // Tear down after each test (optional cleanup)
+            catalogo = null;
+            kata1 = null;
+            kata2 = null;
+            kata3 = null;
+        });
+    
+        it('debería eliminar una kata en la posición especificada', function() {
             const initialLength = catalogo.getLista().length;
             catalogo.eliminarKata(1);  // Eliminar 'Kata 2'
     
@@ -67,12 +77,6 @@ describe('CatalogoKata', function() {
         });
     
         it('debería manejar la eliminación con una posición fuera de rango', function() {
-            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
-            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
-            const catalogo = new CatalogoKata();
-            catalogo.agregarKata(kata1);
-            catalogo.agregarKata(kata2);
-    
             const initialLength = catalogo.getLista().length;
             catalogo.eliminarKata(10);  // Posición fuera de rango
     
@@ -84,7 +88,7 @@ describe('CatalogoKata', function() {
         });
     
         it('debería manejar la eliminación con una lista vacía', function() {
-            const catalogo = new CatalogoKata();
+            catalogo = new CatalogoKata();  // Sobrescribir con lista vacía
             const initialLength = catalogo.getLista().length;
     
             catalogo.eliminarKata(0);  // Intentar eliminar en una lista vacía
@@ -94,14 +98,6 @@ describe('CatalogoKata', function() {
         });
     
         it('debería manejar la eliminación del primer elemento', function() {
-            const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
-            const kata2 = new Kata('Kata 2', 'Autor B', 'Descripcion B', 'Media');
-            const kata3 = new Kata('Kata 3', 'Autor C', 'Descripcion C', 'Dificil');
-            const catalogo = new CatalogoKata();
-            catalogo.agregarKata(kata1);
-            catalogo.agregarKata(kata2);
-            catalogo.agregarKata(kata3);
-    
             const initialLength = catalogo.getLista().length;
             catalogo.eliminarKata(0);  // Eliminar 'Kata 1'
     
@@ -112,7 +108,6 @@ describe('CatalogoKata', function() {
             assert.ok(!catalogo.getLista().includes(kata1), 'El primer kata eliminado aún está en la lista');
         });
     });
-    
     describe('#mostrarCatalogoKatas()', function() {
         it('debería mostrar el catálogo de katas correctamente', function() {
             const kata1 = new Kata('Kata 1', 'Autor A', 'Descripcion A', 'Facil');
